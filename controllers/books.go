@@ -20,7 +20,7 @@ type CreateBookInput struct {
 func CreateBook(c *gin.Context) {
 	var input CreateBookInput
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H("error": err.Error()))
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	book := models.Book{Title: input.Title, Author: input.Author}
