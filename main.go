@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
-	"models"
-	"controllers"
+	"books-data-back-end/models"
+	"books-data-back-end/controllers"
 )
 
 func main() {
