@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"github.com/gin-gonic/gin"
 	"models"
+	"controllers"
 )
 
 func main() {
@@ -12,5 +13,6 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"data": "hello world"})
 	})
 	models.ConnectDatabase()
+	r.GET("/books", controllers.FindBooks)
 	r.Run()
 }
