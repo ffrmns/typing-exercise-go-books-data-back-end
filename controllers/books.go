@@ -36,3 +36,23 @@ func CreateBook(c *gin.Context) {
 	models.DB.Create(&book)
 	c.JSON(http.StatusOK, gin.H{"data": book})
 }
+
+type UpdateBookInput struct {
+	Title string `json:"title"`
+	Author string `json:"author"`
+}
+
+func UpdateBookById(c *gin.Context) {
+	var book models.Book
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&book).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+	var input UpdateBookInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	models.DB.Model(&book).Updates(input)
+	c.JSON(http.StatusOK, gin.H{"data": book})
+}
